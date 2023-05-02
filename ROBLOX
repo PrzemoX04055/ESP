@@ -1,14 +1,15 @@
 local ESP = {
     Enabled = false,
-	Tracers = true,
-    Boxes = true,
-    ShowInfo = true,
-    UseTeamColor = true,
+	Tracers = false,
+    Boxes = false,
+    ShowInfo = false,
+    UseTeamColor = false,
+	TeamColor = Color3.new(0, 1, 0),
+	EnemyColor = Color3.new(1, 0, 0),
     ShowTeam = true,
 	Info = {
 		["Name"] = true,
 		["Health"] = true,
-		["Weapons"] = true,
 		["Distance"] = true
 	},
 	
@@ -252,18 +253,7 @@ function boxBase:Update()
 				Offset = Offset + 14
 			else
 				self.Components.Distance.Visible = false
-			end
-			
-			if ESP.Info.Weapons == true then
-				self.Components.Weapons.Visible = true
-				self.Components.Weapons.Position = Vector2.new(TagPos.X, TagPos.Y - Offset)
-				self.Components.Weapons.Text = "["..Char.EquippedTool.Value.."]"
-				self.Components.Weapons.Color = color
-				Offset = Offset + 14
-			else
-				self.Components.Weapons.Visible = false
-			end
-			
+			end	
 			
 			if ESP.Info.Health == true then
 				self.Components.Health.Visible = true
@@ -287,13 +277,11 @@ function boxBase:Update()
         else
             self.Components.Name.Visible = false
 			self.Components.Health.Visible = false
-			self.Components.Weapons.Visible = false
             self.Components.Distance.Visible = false
         end
     else
         self.Components.Name.Visible = false
 		self.Components.Health.Visible = false
-		self.Components.Weapons.Visible = false
         self.Components.Distance.Visible = false
     end
     
@@ -355,14 +343,6 @@ function ESP:Add(obj, options)
 	})
 	
 	box.Components["Health"] = Draw("Text", {
-		Color = box.Color,
-		Center = true,
-		Outline = true,
-        Size = 19,
-        Visible = self.Enabled and self.ShowInfo
-	})
-	
-	box.Components["Weapons"] = Draw("Text", {
 		Color = box.Color,
 		Center = true,
 		Outline = true,
